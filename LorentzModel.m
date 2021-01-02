@@ -51,7 +51,6 @@ state = zeros(3*(iterationTime-1), num_nodes, num_nodes);
 for i = 1:num_nodes             % 第i个点开始
     % observation
     temp2 = zeros(3 , iterationTime-1);
-    temp3 = zeros(3 , iterationTime-1);
     for j = 1:(iterationTime - 1)
         temp = (history(:,i,j+1) - history(:,i,j)) / h;
         x = history(1,i,j);
@@ -62,7 +61,6 @@ for i = 1:num_nodes             % 第i个点开始
         w=x*y-8/3*z;
         Q=[u,v,w]';
         temp2(:,j) = temp - Q;
-        temp3(:,j) = history2(:,i,j);
     end
     
     observation(:,i) = reshape(temp2, 3*(iterationTime-1),1);
