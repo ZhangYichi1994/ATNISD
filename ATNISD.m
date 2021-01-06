@@ -1,4 +1,12 @@
-function [x, history] = ATNISD3D(A, b, lambda, rho, Penal)
+function [x, history] = ATNISD(A, b, lambda, rho, Penal)
+%------------------------------------------------------------------
+% The ATNISD algorithm for the following paper:
+% "Robust Structure Identification of Industrial 
+% Cyber-Physical System from Sparse Data: a Network Science Perspective" . 
+% The algorithm adopts from the ADMM.
+% Coded by: Yichi Zhang, Central South University
+%------------------------------------------------------------------
+
 % 
 % Solves the following problem via ADMM:
 %
@@ -13,8 +21,6 @@ function [x, history] = ATNISD3D(A, b, lambda, rho, Penal)
 % 
 % rho is the augmented Lagrangian parameter. 
 %
-% alpha is the over-relaxation parameter (typical values for alpha are 
-% between 1.0 and 1.8).
 %
 
 t_start = tic;
