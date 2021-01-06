@@ -1,4 +1,4 @@
-function [x, history] = ATNISD3D(A, b, lambda, rho, alpha, Penal)
+function [x, history] = ATNISD3D(A, b, lambda, rho, Penal)
 % 
 % Solves the following problem via ADMM:
 %
@@ -111,21 +111,15 @@ for k = 1:MAX_ITER
     history.eps_pri1(k)= sqrt(n)*ABSTOL + RELTOL*max(norm(x), norm(-z2));
     history.eps_dual1(k)=sqrt(n)*ABSTOL + RELTOL*norm(rho*u2);
     
-%     % reshape
-%     score = reshape(x, n * T, 1);
-%     [AUROC,AUPR,prec, tpr, fpr, thresh] = prec_rec(score, target, 'holdFigure',1);
-%     history.auroc(k) = AUROC;
-%     history.aupr(k) = AUPR;
-    
-    
-    if ~QUIET
-        fprintf('%3d\t%10.4f\t%10.4f\t%10.4f\t%10.4f\t%10.2f\n', k, ...
-            history.r_norm(k), history.eps_pri(k), ...
-            history.s_norm(k), history.eps_dual(k), ...
-            history.r1_norm(k),history.eps_pri1(k), ...
-            history.s1_norm(k),history.eps_dual1(k), ...
-            history.objval(k));
-    end
+%     
+%     if ~QUIET
+%         fprintf('%3d\t%10.4f\t%10.4f\t%10.4f\t%10.4f\t%10.2f\n', k, ...
+%             history.r_norm(k), history.eps_pri(k), ...
+%             history.s_norm(k), history.eps_dual(k), ...
+%             history.r1_norm(k),history.eps_pri1(k), ...
+%             history.s1_norm(k),history.eps_dual1(k), ...
+%             history.objval(k));
+%     end
     
     if ~QUIET
         fprintf('%3d\t%10.2f\n', k,history.objval(k));

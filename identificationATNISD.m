@@ -33,7 +33,7 @@ for t = 1:evolveTime
     strategyUse(:,:,t) = strategyTemp;
 end
 
-[x, history] = ATNISD(strategyUse, observeUse, lambda, 1, 1, penaltyF);
+[x, history] = ATNISD(strategyUse, observeUse, lambda, 1, penaltyF);
 
 for t = 1:evolveTime
     xTemp = x(:,t);

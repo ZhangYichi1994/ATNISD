@@ -11,7 +11,8 @@ y=zeros(1,n);   % state y axis
 z=zeros(1,n);   % state z axis
 
 num_nodes = n;
-h = 0.0000001;
+% h = 0.0000001;
+h = 0.0001;
 num_meas =64;%45              %观测点数(<34)64,196
 d_dimension = 3;              %每个振子的维数
 

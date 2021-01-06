@@ -17,8 +17,24 @@ adjWeight = ones(p*p,1);
 oldStra = [];
 sampleNumMat = zeros(1,times);
 
-observation = zeros(6, p, times);
-strategy = zeros(6, p, p, times);
+
+if mode == 1    % 通牒博弈
+    if sampleModel == 1
+        sampleTime = s + int8(2 * rand(1));
+    else
+        sampleTime = s;
+    end
+end
+if mode == 2   % 洛伦兹动力学
+    if sampleModel == 1
+        sampleTime = s + int8(2 * rand(1));
+    else
+        sampleTime = s;
+    end
+    sampleTime = sampleTime * 3;
+end
+observation = zeros(sampleTime, p, times);
+strategy = zeros(sampleTime, p, p, times);
 
 for evolve = 1:times
 %         Adjset(:,:,evolve) = adj - diag(sum(adj));
@@ -145,10 +161,10 @@ if mode == 2   % 洛伦兹动力学
     else
         sampleTime = s;
     end
-    [observation, state] = LorentzModel(adj, sampleTime, oldStra, noise);
+    [observation, state] = LorentzModel(adj, sampleTime + 1, oldStra, noise);
     current = observation;
     voltage = state;
-    sampleTime = (sampleTime-1) * 3;
+    sampleTime = sampleTime * 3;
 end
 
 end
@@ -186,7 +202,7 @@ while pos < Nodes
         deg = sum(Net(:,rnode)) * 2;
         rlink = rand * 1;
         if rlink < deg / sumlinks && Net(pos,rnode) == 0 && Net(rnode,pos) == 0
-            edgeWeight = 1 * randWeight(weightModel);
+            edgeWeight = 1;
             Net(pos,rnode) = edgeWeight;
             Net(rnode,pos) = edgeWeight;
             linkage = linkage + 1;
@@ -203,5 +219,14 @@ for i = 1:Nodes
     Net(i,i) = 0;
 end
 clear Nodes deg linkage pos rlink rnode sumlinks mlinks
-SFNet = Net;
+[m,n] = size(Net);
+weight = zeros(m,n);
+for i  = 1:m
+    for j = 1:i
+        weight(i,j) = randWeight(weightModel);
+        weight(j,i) = weight(i,j);
+    end
+end
+
+SFNet = Net .* weight;
 end
