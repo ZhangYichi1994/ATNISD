@@ -6,6 +6,8 @@ This is the source code of paper "Robust Structure Identification of Industrial 
 
 The DOI of this paper is: 10.1109/TASE.2021.3062356
 
+If you find the source code useful, please cite:
+
 ``` latex
 @ARTICLE{9374759,
   author={Y. {Zhang} and C. {Yang} and K. {Huang} and C. {Zhou} and Y. {Li}},
